@@ -7,7 +7,7 @@
           :item="item"
           :checkTodo="checkTodo"
           :todos="todos"
-          @delete-todo="deleteTodo"
+          @delete-todo="deleteTodo(item.id)"
       />
     </ul>
 

@@ -5,9 +5,15 @@
       <todo-list
         :todos="todos"
         :checkTodo="checkTodo"
-        @delete-todo="handleDeleteTodo(id)"
+        @delete-todo="handleDeleteTodo"
       />
-      <my-footer :todoDone="todoDone" :todoAll="todoAll" />
+      <my-footer
+        :todoDone="todoDone"
+        :todoAll="todoAll"
+        :todos="todos"
+        @handleAllTodo="handleAllTodo"
+        @deleteDone="deleteDone"
+      />
     </div>
   </div>
 </template>
@@ -42,22 +48,43 @@ export default {
     },
   },
   methods: {
-    // 添加todo
+    /** 添加todo **/
     receive(todoObj) {
       // console.log(todoObj)
       this.todos.unshift(todoObj);
     },
-    // 勾选或取消勾选
+
+    /** 选中或取消选中单个todo **/
     checkTodo(id) {
       this.todos.forEach((todo) => {
         if (todo.id === id) todo.done = !todo.done;
       });
     },
 
+    /** 删除单个todo **/
     handleDeleteTodo(id) {
-      console.log(id)
-      this.todos.splice(this.todos.findIndex(item => item.id === id), 1)
+      console.log(id);
+      this.todos.splice(
+        this.todos.findIndex((item) => item.id === id),
+        1
+      );
     },
+
+    /** 选中或取消选中所有todo **/
+    handleAllTodo() {
+      // 检查是否所有的 todo 都已经选中
+      const allDone = this.todos.every((todo) => todo.done);
+
+      // 切换所有 todo 的选中状态
+      this.todos.forEach((todo) => {
+        todo.done = !allDone;
+      });
+    },
+
+    /** 删除所有已完成的todo **/
+    deleteDone() {
+      this.todos = this.todos.filter((todo) =>!todo.done);
+    }
   },
 };
 </script>

@@ -1,11 +1,11 @@
 <template>
   <div class="clean-all">
     <div class="todos-status">
-      <input type="checkbox" class="form-check-input">
+      <input type="checkbox" class="form-check-input" @change="handleAllTodo">
       已完成<span class="done">{{ todoDone }}</span>&nbsp;/&nbsp;全部<span class="all">{{ todoAll }}</span>
     </div>
     <div class="clean-all-btn">
-     <button class="btn btn-danger btn-sm" @click="cleanDone">清除已完成任务</button>
+     <button class="btn btn-danger btn-sm" @click="deleteDone">清除已完成任务</button>
     </div>
   </div>
 </template>
@@ -16,10 +16,16 @@ export default {
   data() {
     return {}
   },
-  props: ["todoDone", "todoAll"],
+  props: ["todoDone", "todoAll", "todos"],
   methods: {
-    cleanDone() {
-      console.log("cleanDone")
+    /** 删除所有选中的todo **/
+    deleteDone() {
+      this.$emit("deleteDone")
+    },
+
+    /** 点击全选 **/
+    handleAllTodo() {
+      this.$emit("handleAllTodo")
     }
   },
 
