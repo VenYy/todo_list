@@ -5,7 +5,7 @@
       已完成<span class="done">{{ todoDone }}</span>&nbsp;/&nbsp;全部<span class="all">{{ todoAll }}</span>
     </div>
     <div class="clean-all-btn">
-<!--      <button class="btn btn-danger btn-sm" @click="cleanAll">清除已完成任务</button>-->
+     <button class="btn btn-danger btn-sm" @click="cleanDone">清除已完成任务</button>
     </div>
   </div>
 </template>
@@ -18,6 +18,9 @@ export default {
   },
   props: ["todoDone", "todoAll"],
   methods: {
+    cleanDone() {
+      console.log("cleanDone")
+    }
   },
 
 }

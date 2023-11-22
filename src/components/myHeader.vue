@@ -28,8 +28,7 @@ export default {
 </script>
 
 <style scoped>
-.my-header {
-}
+
 
 .my-header input {
   width: 100%;

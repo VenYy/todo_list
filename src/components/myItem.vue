@@ -1,11 +1,18 @@
 <template>
   <div class="item">
     <div class="item-content">
-      <input type="checkbox" class="form-check-input" :checked="item.done" @change="handleTodo(item.id)">
+      <input
+        type="checkbox"
+        class="form-check-input"
+        :checked="item.done"
+        @change="handleTodo(item.id)"
+      />
       <span class="item-text">{{ item.text }}</span>
     </div>
     <div class="item-button">
-      <button class="btn btn-danger btn-sm">删除</button>
+      <button class="btn btn-danger btn-sm" @click="deleteTodo(item.id)">
+        删除
+      </button>
     </div>
   </div>
 </template>
@@ -13,19 +20,22 @@
 <script>
 export default {
   name: "ButtonItem",
-  props: ["item", "checkTodo"],
+  props: ["item", "checkTodo", "todos"],
   data() {
     return {
-      isHover: false
-    }
+      isHover: false,
+    };
   },
   methods: {
     handleTodo(id) {
-      this.checkTodo(id)
-    }
-
-  }
-}
+      this.checkTodo(id);
+    },
+    deleteTodo(id) {
+      // 触发自定义事件，通知父组件删除该todo
+      this.$emit("delete-todo", id);
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -48,5 +58,4 @@ export default {
   vertical-align: text-top;
   margin-right: 10px;
 }
-
 </style>

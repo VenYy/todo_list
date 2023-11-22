@@ -2,10 +2,12 @@
   <div class="todos">
     <ul>
       <my-item
-          v-for="item in todoList"
+          v-for="item in todos"
           :key="item.id"
           :item="item"
           :checkTodo="checkTodo"
+          :todos="todos"
+          @delete-todo="deleteTodo"
       />
     </ul>
 
@@ -25,8 +27,12 @@ export default {
       isHover: false
     }
   },
-  props: ["todoList", "checkTodo"],
-  methods: {}
+  props: ["todos", "checkTodo"],
+  methods: {
+    deleteTodo(id) {
+      this.$emit("delete-todo", id)
+    }
+  }
 };
 </script>
 
