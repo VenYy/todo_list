@@ -32,11 +32,12 @@ export default {
   },
   data() {
     return {
-      todos: [
-        { id: "1", text: "吃饭", done: true },
-        { id: "2", text: "睡觉", done: true },
-        { id: "3", text: "敲代码", done: false },
-      ],
+      // todos: [
+      //   { id: "1", text: "吃饭", done: true },
+      //   { id: "2", text: "睡觉", done: true },
+      //   { id: "3", text: "敲代码", done: false },
+      // ],
+      todos: JSON.parse(localStorage.getItem("todos")) || [],
     };
   },
   computed: {
@@ -83,8 +84,16 @@ export default {
 
     /** 删除所有已完成的todo **/
     deleteDone() {
-      this.todos = this.todos.filter((todo) =>!todo.done);
-    }
+      this.todos = this.todos.filter((todo) => !todo.done);
+    },
+  },
+  watch: {
+    todos: {
+      deep: true, // 深度监视
+      handler(value) {
+        localStorage.setItem("todos", JSON.stringify(value));
+      },
+    },
   },
 };
 </script>
